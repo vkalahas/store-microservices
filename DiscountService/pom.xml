@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cogent</groupId>
-	<artifactId>DepartmentService</artifactId>
+	<artifactId>DiscountService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>DepartmentService</name>
-	<description>DepartmentService</description>
+	<name>DiscountService</name>
+	<description>DiscountService</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
