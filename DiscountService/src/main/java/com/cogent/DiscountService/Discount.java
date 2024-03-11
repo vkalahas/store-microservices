@@ -27,7 +27,46 @@ class Discount {
     public Discount() {
     }
 
-    public Integer getId() {
+    public Integer getDiscountId() {
+		return discountId;
+	}
+
+	public Discount(String code, Integer percent, User user) {
+		super();
+		this.code = code;
+		this.percent = percent;
+		this.user=user;
+	}
+
+	public void setDiscountId(Integer discountId) {
+		this.discountId = discountId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Integer getPercent() {
+		return percent;
+	}
+
+	public void setPercent(Integer percent) {
+		this.percent = percent;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return discountId;
     }
 

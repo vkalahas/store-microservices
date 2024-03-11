@@ -1,17 +1,12 @@
 package com.cogent.DiscountService;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.furniturecloud.datalayer.DAO;
-import com.furniturecloud.datalayer.Discounts;
-import com.furniturecloud.datalayer.UserRepo;
-import com.furniturecloud.security.utils.LoginResponseDTO;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,9 +23,9 @@ import jakarta.validation.Valid;
 @CrossOrigin("*")
 public class DiscountController {
 	@Autowired
-	private DAO<Discounts, UUID> Discounts;
+	DiscountRepo disRep;
 	@Autowired
-	private UserRepo user;
+	UserRepo urepo;
 	// Missing an annotation to resolve request to User object
 	// Need to decide on return values
 
@@ -45,29 +35,32 @@ public class DiscountController {
 		return "Discounts";
 	}
 	
-	@PostMapping("/create")
-	public ResponseEntity<?> createDiscount(@Valid @RequestBody Discounts o, BindingResult br) {
-		if (!br.hasErrors()) {
-			Discounts or = new Discounts(o.getCart(),user.findByEmail(auth.getName()).get());
-			Discounts.create(or);
+	@PostMapping("/create/{id}")
+	public ResponseEntity<?> createDiscount(@Valid @RequestBody Discount d,@PathVariable int id) {
 
-			return ResponseEntity.status(HttpStatus.OK).body(or);
-		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getAllErrors());
+			Discount disc = new Discount(d.getCode(),d.getPercent(), urepo.findById(id).get());
+			disRep.save(disc);
+
+			return ResponseEntity.status(HttpStatus.OK).body(disc);
+
 	}
 
-	@DeleteMapping("/Discount/delete/{id}")
-	public ResponseEntity<?> deleteDiscount(@PathVariable Long id) {
-		Discount.delete(id);
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteDiscount(@PathVariable Integer id) {
+		disRep.deleteById(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
 	}
 
-	@GetMapping("/Discount/get/{uuid}")
-	public ResponseEntity<?> getDiscount(@Valid @PathVariable UUID uuid) {
-		Discounts o = Discounts.get(uuid);
-		if (o != null)
-			return ResponseEntity.status(HttpStatus.OK).body(o);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID");
+	@GetMapping("/apply/{id}/{code}")
+	public ResponseEntity<?> getDiscount(@Valid @PathVariable Integer id,@PathVariable String code) {	
+
+		List<Discount> discounts= disRep.findByUser(urepo.findById(id).get())
+				.stream()
+				.filter(x->x.getCode().equals(code))
+				.toList();
+		
+		return ResponseEntity.status(HttpStatus.OK).
+				body(new DiscoutDTO(discounts!=null,(discounts==null)?null:discounts.get(0)));
 	}
 
 }

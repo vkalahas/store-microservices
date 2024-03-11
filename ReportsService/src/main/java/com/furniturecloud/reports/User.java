@@ -1,11 +1,7 @@
-package com.cogent.DiscountService;
-
+package com.furniturecloud.reports;
 
 
 import jakarta.persistence.Column;
-
-//import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +10,6 @@ import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-
-
-
 
 @Entity
 @NamedNativeQuery(
