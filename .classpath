@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="cloud-gateway/src/main/java"/>
+	<classpathentry kind="src" path="cloud-gateway/src/test/java"/>
+	<classpathentry kind="src" path="DiscountService/src/main/java"/>
+	<classpathentry kind="src" path="DiscountService/src/test/java"/>
+	<classpathentry kind="src" path="EmployeeService/src/main/java"/>
+	<classpathentry kind="src" path="EmployeeService/src/test/java"/>
+	<classpathentry kind="src" path="Service-Registry/src/main/java"/>
+	<classpathentry kind="src" path="Service-Registry/src/test/java"/>
+	<classpathentry kind="lib" path="cloud-gateway/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="DiscountService/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="EmployeeService/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="Service-Registry/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
