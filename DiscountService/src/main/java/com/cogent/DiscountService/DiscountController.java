@@ -60,7 +60,7 @@ public class DiscountController {
 				.toList();
 		
 		return ResponseEntity.status(HttpStatus.OK).
-				body(new DiscoutDTO(discounts!=null,(discounts==null)?null:discounts.get(0)));
+				body(new DiscoutDTO(discounts.size()!=0,(discounts.size()==0)?null:discounts.get(0)));
 	}
 
 }
